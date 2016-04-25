@@ -24,9 +24,10 @@ int main() {
     
     
     head = cons(val2,head);
-/*
     display(head);
-    printf("Length = %i\n",length(head));
+    printf("Length of size 2 list = %d\n",length(head));
+    printf("Length of null list = %d\n",length(makeNull()));
+/*
     printf("Empty? %i\n",isNull(head));
 */
     cleanup(head);

@@ -94,5 +94,9 @@ bool isNull(Value *value){
 // Measure length of list. Use assertions to make sure that this is a legitimate
 // operation.
 int length(Value *value){
-    return 0;
+    if (value->type == CONS_TYPE) {
+        return length(value->c.cdr)+1;
+    } else {
+        return 0;
+    }
 }
