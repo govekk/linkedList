@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 #include "linkedlist.h"
 #include "value.h"
 
@@ -10,6 +11,36 @@ Value *makeNull(){
     Value *nulltype = malloc(sizeof(Value));
     nulltype->type = NULL_TYPE;
     return nulltype;
+}
+
+// Helper method that creates a separate copy of Value struct
+// in order not to share the same memory between the original and new one.
+Value *copy_Value(Value *val){
+    Value *val_copy = malloc(sizeof(Value));
+    switch (val->type) {
+        case(NULL_TYPE):
+            val_copy->type = NULL_TYPE;
+            break;
+        case(CONS_TYPE):
+            printf("constype\n");
+            val_copy->type = CONS_TYPE;
+            val_copy->c.car = copy_Value(car(val));
+            val_copy->c.cdr = copy_Value(cdr(val));
+            break;
+        case (INT_TYPE):
+            val_copy->type = INT_TYPE;
+            val_copy->i = val->i;
+            break;
+        case (DOUBLE_TYPE):
+            val_copy->type=DOUBLE_TYPE;
+            val_copy->d = val->d;
+            break;
+        case (STR_TYPE):
+            val_copy->type = STR_TYPE;
+            val_copy->s = val->s;
+            break;
+    }
+    return val_copy;
 }
 
 // Utility to check if pointing to a NULL_TYPE value. Use assertions to make sure
@@ -51,11 +82,12 @@ void display(Value *list){
     }
 }
 
+
 Value *reverseHelper(Value *list, Value *newlist) {
     if (isNull(list)) {
         return newlist;
     } else {
-        newlist = cons(car(list), newlist);
+        newlist = cons(copy_Value(car(list)), newlist);
         return reverseHelper(cdr(list), newlist);
     }
 }
@@ -66,7 +98,6 @@ Value *reverseHelper(Value *list, Value *newlist) {
 Value *reverse(Value *list){
     Value *newlist = makeNull();
     newlist = reverseHelper(list, newlist);
-    cleanup(list);
     return newlist;
 }
 
@@ -76,7 +107,7 @@ void cleanup(Value *list){
         cleanup(list->c.car);
         cleanup(list->c.cdr);
         free(list);
-    } else {
+    }else{
         free(list);
     }
 }
