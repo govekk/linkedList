@@ -18,11 +18,16 @@ int main() {
     val2->d = 4.3;
 
     Value *head = makeNull();
+    
     head = cons(val1,head);
+    printf("car of head: %d\n", head->c.car->i);
+    
+    
     head = cons(val2,head);
-
+/*
     display(head);
     printf("Length = %i\n",length(head));
     printf("Empty? %i\n",isNull(head));
+*/
     cleanup(head);
 }
