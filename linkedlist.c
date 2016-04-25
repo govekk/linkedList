@@ -46,21 +46,16 @@ void display(Value *list){
 // Return a new list that is the reverse of the one that is passed in. All
 // content within the list should be duplicated; there should be no shared
 // memory between the original list and the new one.
-//
-// FAQ: What if there are nested lists inside that list?
-// ANS: There won't be for this assignment. There will be later, but that will
-// be after we've got an easier way of managing memory.
 Value *reverse(Value *list){
-    Value *ptr = malloc(sizeof(Value));
-    return ptr;
+    Value *newList = makeNull();
+    if (isNULL(list)){
+        return newList;
+    } else {
+        newList = cons(list->c.car,newList);
+    }
 }
 
-// Frees up all memory directly or indirectly referred to by list. Note that
-// this linked list might consist of linked lists as items, so you'll need to
-// clean them up as well.
-// FAQ: What if there are nested lists inside that list?
-// ANS: There won't be for this assignment. There will be later, but that will
-// be after we've got an easier way of managing memory.
+// Frees up all memory directly or indirectly referred to by list.
 void cleanup(Value *list){
     if (list->type == CONS_TYPE) {
         cleanup(list->c.car);
@@ -88,7 +83,7 @@ Value *cdr(Value *list){
 // Utility to check if pointing to a NULL_TYPE value. Use assertions to make sure
 // that this is a legitimate operation.
 bool isNull(Value *value){
-    return 0;
+    return (value->type == NULL_TYPE);
 }
 
 // Measure length of list. Use assertions to make sure that this is a legitimate
