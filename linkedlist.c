@@ -45,12 +45,12 @@ Value *reverse(Value *list){
 // ANS: There won't be for this assignment. There will be later, but that will
 // be after we've got an easier way of managing memory.
 void cleanup(Value *list){
-    if (list->type == NULL_TYPE){
-        free(list);
-    }else{
+    if (list->type == CONS_TYPE) {
+        cleanup(list->c.car);
         cleanup(list->c.cdr);
-        free(list->c.car);
-        free(list->c.cdr);
+        free(list);
+    } else {
+        free(list);
     }
 }
 
