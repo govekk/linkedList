@@ -6,7 +6,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <assert.h>
 #include "linkedlist.h"
 #include "value.h"
 
@@ -22,7 +21,7 @@ int main() {
     Value *head = makeNull();
  
     head = cons(val1,head);
-    
+
     head = cons(val2,head);
     display(head);
     

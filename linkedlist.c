@@ -55,8 +55,8 @@ Value *reverseHelper(Value *list, Value *newlist) {
     if (isNull(list)) {
         return newlist;
     } else {
-        newlist = cons(list->c.car, newlist);
-        return reverseHelper(list->c.cdr, newlist);
+        newlist = cons(car(list), newlist);
+        return reverseHelper(cdr(list), newlist);
     }
 }
 
