@@ -11,6 +11,13 @@ Value *makeNull(){
     return nulltype;
 }
 
+// Utility to check if pointing to a NULL_TYPE value. Use assertions to make sure
+// that this is a legitimate operation.
+bool isNull(Value *value){
+    //assert(value->type);
+    return (value->type == NULL_TYPE);
+}
+
 // Create a new CONS_TYPE value node.
 Value *cons(Value *car, Value *cdr){ 
     Value *constype = malloc(sizeof(Value));
@@ -43,16 +50,21 @@ void display(Value *list){
     }
 }
 
+Value *reverseHelper(Value *list, Value *newlist) {
+    if (isNull(list)) {
+        return newlist;
+    } else {
+        newlist = cons(list->c.car, newlist);
+        return reverseHelper(list->c.cdr, newlist);
+    }
+}
+
 // Return a new list that is the reverse of the one that is passed in. All
 // content within the list should be duplicated; there should be no shared
 // memory between the original list and the new one.
 Value *reverse(Value *list){
-    Value *newList = makeNull();
-    if (isNULL(list)){
-        return newList;
-    } else {
-        newList = cons(list->c.car,newList);
-    }
+    Value *newlist = makeNull();
+    return reverseHelper(list, newlist);
 }
 
 // Frees up all memory directly or indirectly referred to by list.
@@ -78,12 +90,6 @@ Value *car(Value *list){
 Value *cdr(Value *list){
     Value *ptr = malloc(sizeof(Value));
     return ptr;
-}
-
-// Utility to check if pointing to a NULL_TYPE value. Use assertions to make sure
-// that this is a legitimate operation.
-bool isNull(Value *value){
-    return (value->type == NULL_TYPE);
 }
 
 // Measure length of list. Use assertions to make sure that this is a legitimate
