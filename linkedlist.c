@@ -23,7 +23,24 @@ Value *cons(Value *car, Value *cdr){
 // Display the contents of the linked list to the screen in some kind of
 // readable format
 void display(Value *list){
-    
+    switch (list->type) {
+        case (CONS_TYPE):
+            display(list->c.car);
+            display(list->c.cdr);
+            break;
+        case (INT_TYPE):
+            printf("%i ", list->i);
+            break;
+        case (DOUBLE_TYPE):
+            printf("%f ", list->d);
+            break;
+        case (STR_TYPE):
+            printf("%s ", list->s);
+            break;
+        case (NULL_TYPE):
+            printf("\n");
+            break;
+    }
 }
 
 // Return a new list that is the reverse of the one that is passed in. All
