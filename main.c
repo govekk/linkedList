@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <stdbool.h>
 #include "linkedlist.h"
 #include "value.h"
 
@@ -19,17 +18,14 @@ int main() {
     val2->d = 4.3;
 
     Value *head = makeNull();
- 
     head = cons(val1,head);
-
     head = cons(val2,head);
+
     display(head);
+    printf("Length = %i\n",length(head));
+    printf("Empty? %i\n",isNull(head));
     
     head = reverse(head);
-    display(head);
-
-/*
-    printf("Empty? %i\n",isNull(head));
-*/
+    head = reverse(head);
     cleanup(head);
 }

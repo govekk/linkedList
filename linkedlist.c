@@ -65,7 +65,9 @@ Value *reverseHelper(Value *list, Value *newlist) {
 // memory between the original list and the new one.
 Value *reverse(Value *list){
     Value *newlist = makeNull();
-    return reverseHelper(list, newlist);
+    newlist = reverseHelper(list, newlist);
+    cleanup(list);
+    return newlist;
 }
 
 // Frees up all memory directly or indirectly referred to by list.
