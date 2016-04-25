@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <assert.h>
 #include "linkedlist.h"
 #include "value.h"
 
@@ -19,16 +20,14 @@ int main() {
     val2->d = 4.3;
 
     Value *head = makeNull();
-    printf("Length of null list = %d\n",length(head));
-    printf("Is null? Should be 1: %d\n",isNull(head));
-    
+ 
     head = cons(val1,head);
-    printf("car of head: %d\n", head->c.car->i);
-    printf("Is null? Should be 0: %d\n",isNull(head));
     
     head = cons(val2,head);
     display(head);
-    printf("Length of size 2 list = %d\n",length(head));
+    
+    head = reverse(head);
+    display(head);
 
 /*
     printf("Empty? %i\n",isNull(head));

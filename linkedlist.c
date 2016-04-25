@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include "linkedlist.h"
 #include "value.h"
 
@@ -81,15 +82,15 @@ void cleanup(Value *list){
 // Utility to make it less typing to get car value. Use assertions to make sure
 // that this is a legitimate operation.
 Value *car(Value *list){
-    Value *ptr = malloc(sizeof(Value));
-    return ptr;
+    assert(list->type == CONS_TYPE);
+    return (list->c.car);
 }
 
 // Utility to make it less typing to get cdr value. Use assertions to make sure
 // that this is a legitimate operation.
 Value *cdr(Value *list){
-    Value *ptr = malloc(sizeof(Value));
-    return ptr;
+    assert(list->type == CONS_TYPE);
+    return (list->c.cdr);
 }
 
 // Measure length of list. Use assertions to make sure that this is a legitimate
