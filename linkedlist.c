@@ -53,6 +53,7 @@ Value *copy_Value(Value *val){
 // Utility to check if pointing to a NULL_TYPE value. Use assertions to make sure
 // that this is a legitimate operation.
 bool isNull(Value *value){
+    assert(value);
     return (value->type == NULL_TYPE);
 }
 
@@ -119,18 +120,21 @@ void cleanup(Value *list){
 
 // Utility to make it less typing to get car value.
 Value *car(Value *list){
+    assert(list);
     assert(list->type == CONS_TYPE);
     return (list->c.car);
 }
 
 // Utility to make it less typing to get cdr value.
 Value *cdr(Value *list){
+    assert(list);
     assert(list->type == CONS_TYPE);
     return (list->c.cdr);
 }
 
 // Measure length of list.
 int length(Value *value){
+    assert(value);
     if (value->type == CONS_TYPE) {
         return length(value->c.cdr)+1;
     } else {
